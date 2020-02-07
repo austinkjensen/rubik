@@ -2,17 +2,17 @@
 #include "CubeGen.h"
 #include <vector>
 #include <random>
-
+#include <iterator>
 
 // template <typename T>
 // T remove_at(std::vector<T>&v, typename std::vector<T>::size_type n)
-char CubeGen::remove_at(std::vector<char>&v, int n) 
-{
-    int ans = std::move_if_noexcept(v[n]);
-    v[n] = std::move_if_noexcept(v.back());
-    v.pop_back();
-    return ans;
-}
+// char CubeGen::remove_at(std::vector<char>&v, int n) 
+// {
+//     char ans = std::move_if_noexcept(v[n]);
+//     v[n] = std::move_if_noexcept(v.back());
+//     v.pop_back();
+//     return ans;
+// }
 
 int CubeGen::choose_random_index(int vect_size) {
     srand(time(NULL));
@@ -20,6 +20,11 @@ int CubeGen::choose_random_index(int vect_size) {
     return ind;
 }
 
+char CubeGen::smart_remove(std::vector<char>&v) {
+    char ans = v.at(0);
+    v.erase(v.begin());
+    return ans;
+}
 
 void CubeGen::side_printer(std::vector<std::vector<char> > side_obj) {
     std::cout << "******" << std::endl;
@@ -44,18 +49,15 @@ void CubeGen::side_printer(std::vector<std::vector<char> > side_obj) {
     std::cout << "******" << std::endl;
 };
 
-CubeGen::CubeGen(char colors_obj[], int num_of_scrambles) {
+CubeGen::CubeGen(int num_of_scrambles) {
     std::cout << "custom default constructor called " << std::endl;
-    int colors_obj_size = 54;
-    // int colors_obj_size = sizeof(colors_obj)/sizeof(colors_obj[0]);
-    // std::cout << colors_size << std::endl;
-    std::vector<char> vect;
-    vect.assign(colors_obj,colors_obj+colors_obj_size);
+    // int colors_obj_size = 54;
+    
 
-    std::cout << vect.at(0) << std::endl;
-    std::cout << vect.at(1) << std::endl;
-    std::cout << vect.at(2) << std::endl;
-    // std::cout << vect.at(35) << std::endl;
+    std::vector<char> vect;
+    vect.assign(static_colors,static_colors+colors_obj_size);
+
+
     int sides = 6;
     int rows_per_side = 3;
     int squares_per_row = 3;
@@ -66,15 +68,13 @@ CubeGen::CubeGen(char colors_obj[], int num_of_scrambles) {
         std::cout << vect[el] << std::endl;
     }
 
-
-    // new_stack = std::stack<char>, std::vector<char>> m_stack(vect);
     for (int i = 0; i < sides; i++) {
         cube_matrix[i].resize(rows_per_side);
         for (int j = 0; j < rows_per_side; j++) {
             cube_matrix[i][j].resize(squares_per_row);
             for (int k = 0; k < squares_per_row; k++) {
-                int random_index = choose_random_index(vect.size());
-                char temp = remove_at(vect,random_index);
+                // int random_index = choose_random_index(vect.size());
+                char temp = smart_remove(vect);
                 cube_matrix[i][j][k] = temp;
                 // char temp = my_stack.pop();
                 // cube_matrix[i][j][k] = temp;

@@ -102,44 +102,12 @@ int main() {
                     'F','F','F','F','F','F','F','F','F',
                     'D','D','D','D','D','D','D','D','D',
                     'R','R','R','R','R','R','R','R','R',
-                    'B','B','B','B','B','B','R','R','R'};
+                    'B','B','B','B','B','B','B','B','B'};
     int root_colors_size = sizeof(colors2)/sizeof(colors2[0]);
     std::cout << root_colors_size << std::endl;
 
     int a = 2;
     std::cout << "made it this far " << std::endl;
-    CubeGen cube_test = CubeGen(colors2,a);
+    CubeGen cube_test = CubeGen(a);
     std::cout << "runs" << std::endl;
-    // int colors_size = sizeof(colors)/sizeof(colors[0]);
-    // // std::cout << colors_size << std::endl;
-    // std::vector<char> vect;
-    // vect.assign(colors,colors+colors_size);
-
-    // // std::cout << vect.at(35) << std::endl;
-    // int sides = 6;
-    // int rows_per_side = 3;
-    // int squares_per_row = 3;
-    // int test_ct = 0;
-    // char testArr[sides][rows_per_side][squares_per_row];
-    // std::vector<std::vector<std::vector<char> > > matrix;
-    
-    // matrix.resize(sides);
-    // for (int i = 0; i < sides; i++) {
-    //     matrix[i].resize(rows_per_side);
-    //     for (int j = 0; j < rows_per_side; j++) {
-    //         matrix[i][j].resize(squares_per_row);
-    //         for (int k = 0; k < squares_per_row; k++) {
-    //             int random_index = choose_random_index(vect.size());
-    //             char temp = remove_at(vect,random_index);
-    //             matrix[i][j][k] = temp;
-    //         };
-    //     };
-    // };
-
-    // side_printer(matrix[0]);
-    
-    // front_turn(matrix);
-
-    // return 0;   
-
 }

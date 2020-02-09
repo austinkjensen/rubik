@@ -10,20 +10,6 @@
 #include "CubeGen.h"
 #include "CubeGen.cpp"
 
-// template <typename T>
-// T remove_at(std::vector<T>&v, typename std::vector<T>::size_type n)
-// {
-//     T ans = std::move_if_noexcept(v[n]);
-//     v[n] = std::move_if_noexcept(v.back());
-//     v.pop_back();
-//     return ans;
-// }
-
-// int choose_random_index(int vect_size) {
-//     srand(time(NULL));
-//     int ind = rand() % vect_size;
-//     return ind;
-// }
 
 void side_printer(std::vector<std::vector<char> > side_obj) {
     int side_size = side_obj.size();
@@ -45,45 +31,7 @@ void side_printer(std::vector<std::vector<char> > side_obj) {
     }
 };
 
-void front_turn(std::vector<std::vector<std::vector<char> > > matrix_obj) {
-    // Here, we will define matrix[0] as "F" (front). Probably wrong, but whatever!
-    // Purpose of this is to turn the top row of F and place it in the top row of R, then we move
-    // All of the other adjacent top rows accordingly (B, and L).
-    std::cout << "*****" << std::endl;
-    std::vector<std::vector<std::vector<char> > > new_matrix = matrix_obj;
-    std::vector<std::vector<char> > F = matrix_obj[0];
-    std::vector<std::vector<char> > R = matrix_obj[1];
-    std::vector<std::vector<char> > B = matrix_obj[2];
-    std::vector<std::vector<char> > L = matrix_obj[3];
 
-    std::vector<char> F_top = F[0];
-    std::vector<char> R_top = R[0];
-    std::vector<char> B_top = B[0];
-    std::vector<char> L_top = L[0];
-
-    std::cout << "F" << std::endl; 
-    side_printer(F);
-    std::cout << "R" << std::endl; 
-    side_printer(R);
-    R[0] = F_top;
-    B[0] = R_top;
-    L[0] = B_top;
-    F[0] = L_top;
-    std::cout << "*****" << std::endl;
-    matrix_obj[0][0] = F[0];
-    matrix_obj[1][0] = R[0];
-    matrix_obj[2][0] = B[0];
-    matrix_obj[3][0] = L[0];
-
-    std::cout << "F" << std::endl; 
-    side_printer(matrix_obj[0]);
-    std::cout << "R" << std::endl; 
-    side_printer(matrix_obj[1]);
-
-
-    // side_printer(F);
-
-}
 
 int main() {
 

@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include <vector>
-// #using namespace std;
+
 
 class CubeGen {
-    // const std::vector<int> colors;
+
     public:
         int num_of_scrambles;
         int _sides = 6;
@@ -18,7 +18,9 @@ class CubeGen {
                 'R','R','R','R','R','R','R','R','R',
                 'B','B','B','B','B','B','B','B','B'};
         const int colors_obj_size = 54;
-
+        const int static_moves_size = 6;
+        const char static_moves[6] = {'U','L','F','D','R','B'};
+        std::vector<char> cube_face_keys;
         CubeGen();
         CubeGen(int num_of_scrambles);
         std::vector<std::vector<std::vector<char> > > matrix_obj;
@@ -26,4 +28,7 @@ class CubeGen {
         char remove_at(std::vector<char>&v, int n);
         void side_printer(std::vector<std::vector<char> > side_obj);
         char smart_remove(std::vector<char>&v);
+
+        void front_turn(std::vector<std::vector<std::vector<char> > > matrix_obj);
+        
 };

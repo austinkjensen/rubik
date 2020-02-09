@@ -7,7 +7,9 @@ class CubeGen {
     // const std::vector<int> colors;
     public:
         int num_of_scrambles;
-        // char colors[54];
+        int _sides = 6;
+        int _rows_per_side = 3;
+        int _squares_per_row = 3;
         std::vector<std::vector<std::vector<char> > > cube_matrix;
         const char static_colors[54] = {'U','U','U','U','U','U','U','U','U',
                 'L','L','L','L','L','L','L','L','L',

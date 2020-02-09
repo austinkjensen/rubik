@@ -22,8 +22,6 @@ class CubeGen {
         CubeGen();
         CubeGen(int num_of_scrambles);
         std::vector<std::vector<std::vector<char> > > matrix_obj;
-        // template <typename T> remove_at(std::vector<T>&v, typename std::vector<T>::size_type n);
-        // char remove_at(std::vector<char>&v, int n);
         int choose_random_index(int vect_size);
         char remove_at(std::vector<char>&v, int n);
         void side_printer(std::vector<std::vector<char> > side_obj);

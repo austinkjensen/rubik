@@ -60,10 +60,6 @@ CubeGen::CubeGen(int num_of_scrambles) {
     std::vector<char> vect;
     vect.assign(static_colors,static_colors+colors_obj_size);
 
-    // int sides = 6;
-    // int rows_per_side = 3;
-    // int squares_per_row = 3;
-    // char testArr[sides][rows_per_side][squares_per_row];
     cube_matrix.resize(_sides);
 
     for (int i = 0; i < _sides; i++) {

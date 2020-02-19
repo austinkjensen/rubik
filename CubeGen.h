@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <map>
 
 
 class CubeGen {
-
     public:
         int num_of_scrambles;
         int _sides = 6;
@@ -28,7 +28,6 @@ class CubeGen {
         char remove_at(std::vector<char>&v, int n);
         void side_printer(std::vector<std::vector<char> > side_obj);
         char smart_remove(std::vector<char>&v);
-
         void front_turn(std::vector<std::vector<std::vector<char> > > matrix_obj);
-        
+        void smart_front_turn(std::map <char,std::vector<std::vector<char> > >);
 };

@@ -1,9 +1,7 @@
 #include <iostream>
 #include "CubeGen.h"
-#include <vector>
 #include <random>
 #include <iterator>
-#include <map>
 #include <utility>      // std::pair, std::make_pair
 
 
@@ -26,40 +24,56 @@ char CubeGen::smart_remove(std::vector<char>&v) {
     return ans;
 }
 
-void CubeGen::front_turn(std::vector<std::vector<std::vector<char> > > matrix_obj) {
+// void CubeGen::front_turn(std::vector<std::vector<std::vector<char> > > matrix_obj)  
+//     // Here, we will define matrix[0] as "F" (front). Probably wrong, but whatever!
+//     // Purpose of this is to turn the top row of F and place it in the top row of R, then we move
+//     // All of the other adjacent top rows accordingly (B, and L).
+//     // std::cout << "*****" << std::endl;
+//     std::vector<std::vector<std::vector<char> > > new_matrix = matrix_obj;
+//     std::vector<std::vector<char> > F = matrix_obj[0];
+//     std::vector<std::vector<char> > R = matrix_obj[1];
+//     std::vector<std::vector<char> > B = matrix_obj[2];
+//     std::vector<std::vector<char> > L = matrix_obj[3];
 
-    // Here, we will define matrix[0] as "F" (front). Probably wrong, but whatever!
-    // Purpose of this is to turn the top row of F and place it in the top row of R, then we move
-    // All of the other adjacent top rows accordingly (B, and L).
-    // std::cout << "*****" << std::endl;
-    std::vector<std::vector<std::vector<char> > > new_matrix = matrix_obj;
-    std::vector<std::vector<char> > F = matrix_obj[0];
-    std::vector<std::vector<char> > R = matrix_obj[1];
-    std::vector<std::vector<char> > B = matrix_obj[2];
-    std::vector<std::vector<char> > L = matrix_obj[3];
+//     std::vector<char> F_top = F[0];
+//     std::vector<char> R_top = R[0];
+//     std::vector<char> B_top = B[0];
+//     std::vector<char> L_top = L[0];
 
-    std::vector<char> F_top = F[0];
-    std::vector<char> R_top = R[0];
-    std::vector<char> B_top = B[0];
-    std::vector<char> L_top = L[0];
+//     side_printer(F);
+//     side_printer(R);
+//     R[0] = F_top;
+//     B[0] = R_top;
+//     L[0] = B_top;
+//     F[0] = L_top;
+//     std::cout << "*****" << std::endl;
+//     matrix_obj[0][0] = F[0];
+//     matrix_obj[1][0] = R[0];
+//     matrix_obj[2][0] = B[0];
+//     matrix_obj[3][0] = L[0];
+// }
+void smart_front_turn(std::map<char,std::vector<std::vector<char> > > cubeMap_obj) {
+    // A front turn, effects R,L,U, D, and of course F. However, F is only transposed.
+    // For this one, we are going to take the "bottom" row of squares for each one of these sides.
+    std::vector<std::vector<char> > R_0 = cubeMap_obj['R'];
+    std::vector<std::vector<char> > L_0 = cubeMap_obj['L'];
+    std::vector<std::vector<char> > U_0 = cubeMap_obj['U'];
+    std::vector<std::vector<char> > D_0 = cubeMap_obj['D'];
 
-    side_printer(F);
-    side_printer(R);
-    R[0] = F_top;
-    B[0] = R_top;
-    L[0] = B_top;
-    F[0] = L_top;
-    std::cout << "*****" << std::endl;
-    matrix_obj[0][0] = F[0];
-    matrix_obj[1][0] = R[0];
-    matrix_obj[2][0] = B[0];
-    matrix_obj[3][0] = L[0];
+    std::vector<char> R_0_slice = R_0[2];
+    std::vector<char> L_0_slice = L_0[2];
+    std::vector<char> U_0_slice = U_0[2];
+    std::vector<char> D_0_slice = D_0[2];
 
-    // std::cout << "F" << std::endl; 
-    // side_printer(matrix_obj[0]);
-    // std::cout << "R" << std::endl; 
-    // side_printer(matrix_obj[1]);
-}
+    cubeMap_obj['R'][2] = U_0_slice;
+    cubeMap_obj['L'][2] = D_0_slice;
+    cubeMap_obj['U'][2] = L_0_slice;
+    cubeMap_obj['D'][2] = R_0_slice;
+
+    return cubeMap_obj;
+    // side_printer(cubeMap_obj['D']);
+    // return cubeMap_obj;
+};
 
 void CubeGen::side_printer(std::vector<std::vector<char> > side_obj) {
     std::cout << "******" << std::endl;
@@ -113,7 +127,14 @@ CubeGen::CubeGen(int num_of_scrambles) {
         std::pair <char,std::vector<std::vector<char> > > temp (static_moves[i],cube_matrix[i]);
         myMap[temp.first]=temp.second;
     }
-    side_printer(myMap['F']);
+    side_printer(myMap['R']);
+    side_printer(myMap['L']);
+    side_printer(myMap['D']);
+    side_printer(myMap['U']);
+    smart_front_turn(myMap);
+    side_printer(myMap['R']);
+    side_printer(myMap['L']);
+    side_printer(myMap['D']);
     side_printer(myMap['U']);
     return;
 }
